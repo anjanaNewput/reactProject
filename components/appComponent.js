@@ -5,16 +5,17 @@ class App extends React.Component {
     constructor() {
       super();
     }
-   render() {
-       console.log(this.props.routes.props.children);
-      return (
-         <div>
-         <Header />
-         <div>{this.props.routes.props.children}</div>
-         <Footer/>
-         </div>
-      )
-   }
+  render() {
+    return (
+      <div>
+        <Header />
+        <div className="container main-container">
+          {this.props.children}
+        </div>
+        <Footer/>
+      </div>
+    )
+  }
 }
 
 export default App;
