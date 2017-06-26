@@ -6,9 +6,11 @@ class App extends React.Component {
       super();
     }
    render() {
+       console.log(this.props.routes.props.children);
       return (
          <div>
          <Header />
+         <div>{this.props.routes.props.children}</div>
          <Footer/>
          </div>
       )
