@@ -1,31 +1,39 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {Form, Input} from 'formsy-react-components';
 
 export default class Login extends React.Component {
+  constructor(props) {
+    super(props);
+    this.changeHandler = this.changeHandler.bind(this);
+    this.state = {
+      user: {}
+    }
+  }
+  
+  changeHandler(evnet) {
+    console.log('change');
+  }
+  
+  submit(data) {
+    console.log(data);
+  }
   render() {
     return (
       <div className="row">
         <div className="col-xs-offset-4 col-xs-4">
           <div className="row">
             <div className="col-xs-12">
-              <div className="form-group">
-                <Link className="btn btn-default" to="/register"> Register</Link>
+              <div className="form-group text-right">
+                <Link  to="/register"> Click To Register</Link>
               </div>
-              <form >
-                <div className="form-group">
-                  <div className="input-group">
-                    <span className="input-group-addon" htmlFor="username"><i className="fa fa-user" aria-hidden="true"></i> User Name</span>
-                    <input type="text" className="form-control"  name="username"  placeholder="john"/>
-                  </div>
+              <Form onValidSubmit={this.submit} noValidate>
+                <Input name="email" label="Email" onChange={this.changeHandler} validations="isEmail" validationError="email is not valid" required/>
+                <Input name="password" label="password" onChange={this.changeHandler} validations={{minLength: 8}} validationErrors={{minLength: 'password must be 8 characters'}} required/>
+                <div className="text-center">
+                  <button type="submit" className="btn btn-primary pull-right">LogIn</button>
                 </div>
-                <div className="form-group">
-                  <div className="input-group">
-                    <span className="input-group-addon" htmlFor="password"><i className="fa fa-key" aria-hidden="true"></i> Password</span>
-                    <input type="password" className="form-control"  name="password"  placeholder="&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;&#9679;"/>
-                  </div>
-                </div>
-                <input type="submit" value="LogIn" className="btn btn-default"/>
-              </form>
+              </Form>
             </div>
           </div>
         </div>
