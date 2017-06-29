@@ -13,8 +13,6 @@ export class Header extends React.Component {
                </div>
                <ul className="nav navbar-nav navbar-right">
                  <li><Link  to="/login">Login</Link></li>
-                 <li><Link  to="/register">Register</Link></li>
-                 <li><Link  to="/users">Users</Link></li>
                </ul>
              </div>
          </nav>

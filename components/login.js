@@ -17,6 +17,7 @@ export default class Login extends React.Component {
   
   submit(data) {
     console.log(data);
+    window.location = '/users';
   }
   render() {
     return (
@@ -25,7 +26,7 @@ export default class Login extends React.Component {
           <div className="row">
             <div className="col-xs-12">
               <div className="form-group text-right">
-                <Link  to="/register"> Click To Register</Link>
+                <Link to="/register"> Click To Register</Link>
               </div>
               <Form onValidSubmit={this.submit} noValidate>
                 <Input name="email" label="Email" onChange={this.changeHandler} validations="isEmail" validationError="email is not valid" required/>
