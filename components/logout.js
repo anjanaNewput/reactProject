@@ -1,8 +1,15 @@
 import React from 'react';
+import { Link } from 'react-router-dom';
+import { updateUserName } from '../actions.js';
+import { store } from '../app.js';
 export class Logout extends React.Component {
+    
+  logout() {
+    store.getState().username = null;
+  }
   render() {
     return (
-            <a><span className="glyphicon glyphicon-log-out"></span>LogOut</a>
+        <Link to="/login" onClick={() => this.logout()}><span className="glyphicon glyphicon-log-out"></span>LogOut</Link>
     );
   }
 }

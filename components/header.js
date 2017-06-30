@@ -14,7 +14,7 @@ export class Header extends React.Component {
                  <a className="navbar-brand">React App</a>
                </div>
                <ul className="nav navbar-nav navbar-right">
-                 <li><UserName /></li>
+                 <li><UserName/></li>
                  <li><Logout /></li>
                </ul>
              </div>

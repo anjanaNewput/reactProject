@@ -1,11 +1,13 @@
 import React from 'react';
 import { Link, Redirect ,hashHistory} from 'react-router-dom';
-import {Form, Input} from 'formsy-react-components';
-import {DB} from '../app.js';
+import { Form, Input } from 'formsy-react-components';
+import { connect } from 'react-redux';
+import { DB } from '../app.js';
+import { updateUserName } from '../actions.js';
 
-export default class Login extends React.Component {
-  constructor(props, context) {
-    super(props, context);
+class Login extends React.Component {
+  constructor(props) {
+    super(props);
     this.changeHandler = this.changeHandler.bind(this);
     this.submit  = this.submit.bind(this);
     this.state = {
@@ -13,42 +15,23 @@ export default class Login extends React.Component {
     }
   }
   
-  changeHandler(evnet) {
+  changeHandler(event) {
     console.log('change');
   }
   
-  checkLogin(userList, user) {
-      for(var i=0; i< userList.length; i++) {
-          console.log(userList[i].doc.model.email);
-          console.log(user.email);
-          var email = userList[i].doc.model.email;
-          var password = userList[i].doc.model.password;
-          if(email == user.email && password == user.password) {
-              return true;
-          } else {
-              return false;
-          }
-      }
-  }
   submit(user) {
       var _this = this;
-      DB.allDocs({
-        include_docs: true,
-        attachments: true
-      }, function(err, response) {
-        if (err) { 
-          return console.log(err);
-        }else {
-          if(_this.checkLogin(response.rows, user)) {
-            _this.props.history.push("/users");
+      DB.get(user.email, function(err, doc) {
+          if (err) {
+              alert("You are not registered. please register yourself first");
+            //   _this.props.history.push("/login");
           } else {
-            alert("user is not registerd. please register yourself first");
-            _this.props.history.push("/login");
+              _this.props.dispatch(updateUserName(user.email));
+              _this.props.history.push("/users");
           }
-          
-        }
       });
   }
+  
   render() {
     return (
       <div className="row">
@@ -72,3 +55,9 @@ export default class Login extends React.Component {
     );
   }
 }
+const mapStateToProps = (state) => {
+  return {
+    username: state.username,
+  };
+};
+export default connect(mapStateToProps)(Login);
