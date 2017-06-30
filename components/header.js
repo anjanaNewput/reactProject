@@ -1,5 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
+import {UserName} from './userName.js';
+import {Logout} from './logout.js';
 export class Header extends React.Component {
     constructor() {
       super();
@@ -12,7 +14,8 @@ export class Header extends React.Component {
                  <a className="navbar-brand">React App</a>
                </div>
                <ul className="nav navbar-nav navbar-right">
-                 <li><Link  to="/login">Login</Link></li>
+                 <li><UserName /></li>
+                 <li><Logout /></li>
                </ul>
              </div>
          </nav>

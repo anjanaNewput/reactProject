@@ -39,20 +39,14 @@ export default class Login extends React.Component {
         if (err) { 
           return console.log(err);
         }else {
-          console.log('all doc');
-          console.log(response);
-          console.log(response.rows);
           if(_this.checkLogin(response.rows, user)) {
-            console.log('log in successful ');
-            console.log(_this);
             _this.props.history.push("/users");
-          }else {
+          } else {
             alert("user is not registerd. please register yourself first");
             _this.props.history.push("/login");
           }
           
         }
-        // handle result
       });
   }
   render() {

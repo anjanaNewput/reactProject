@@ -10,13 +10,23 @@ export default class UserList extends React.Component {
  
   componentDidMount() {
     var _this = this;
-    DB.get('users', function(err, doc) {
-         if (err) { 
-           return console.log(err);
-       } else {
-           _this.setState({data: doc.data});;
-       }
-   });
+    var userArray = [];
+    DB.allDocs({
+      include_docs: true,
+      attachments: true
+    }, function(err, response) {
+      if (err) { 
+        return console.log(err);
+      }else {
+        console.log(response.rows);
+        for(var i=0; i<response.rows.length; i++) {
+            var row = response.rows[i];
+            var obj = {id: i, 'firstName': "ABC", lastName: "XYZ", email: row.doc.model.email, phoneNumber: row.doc.model.phone, doa: '27/10/2018'};
+            userArray.push(obj);
+        }
+        _this.setState({data: userArray});
+      }
+    });
       
   }
   render() {
