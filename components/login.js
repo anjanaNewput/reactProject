@@ -16,9 +16,14 @@ export default class Login extends React.Component {
   changeHandler(evnet) {
     console.log('change');
   }
+  
   checkLogin(userList, user) {
       for(var i=0; i< userList.length; i++) {
-          if(userList[i].email == user.email) {
+          console.log(userList[i].doc.model.email);
+          console.log(user.email);
+          var email = userList[i].doc.model.email;
+          var password = userList[i].doc.model.password;
+          if(email == user.email && password == user.password) {
               return true;
           } else {
               return false;
@@ -27,18 +32,28 @@ export default class Login extends React.Component {
   }
   submit(user) {
       var _this = this;
-      DB.get('users', function(err, doc) {
-           if (err) { 
-             return console.log(err);
-         } else {
-             if(_this.checkLogin(doc.data, user)) {
-                 _this.props.history.push("/users");
-             }
-             alert("user is not registerd. please register yourself first");
-             _this.props.history.push("/login");
-             
-         }
-     });
+      DB.allDocs({
+        include_docs: true,
+        attachments: true
+      }, function(err, response) {
+        if (err) { 
+          return console.log(err);
+        }else {
+          console.log('all doc');
+          console.log(response);
+          console.log(response.rows);
+          if(_this.checkLogin(response.rows, user)) {
+            console.log('log in successful ');
+            console.log(_this);
+            _this.props.history.push("/users");
+          }else {
+            alert("user is not registerd. please register yourself first");
+            _this.props.history.push("/login");
+          }
+          
+        }
+        // handle result
+      });
   }
   render() {
     return (
