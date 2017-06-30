@@ -4,7 +4,6 @@ export class Footer extends React.Component {
     return (
         <div className="footer">
             <p>&copy; 2017 Newput Inc.</p>
-            
        </div>
     );
   }

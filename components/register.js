@@ -19,16 +19,7 @@ export default class RegisterUser extends React.Component {
   }
   
   submit(model){
-    console.log(model);
     DB.put({ _id: model.email, model}, function(err,response) {
-      if(err) {
-        console.log('error');
-        console.log(err);
-      }
-      else {
-        console.log('response');
-        console.log(response);
-      }
     });
   }
   render() {
@@ -42,7 +33,7 @@ export default class RegisterUser extends React.Component {
               </div>
               <Form onValidSubmit={this.submit} noValidate>
                 <div className="form-group">
-                  <Input name="email" label="Email address" onChange={this.changeHandler} validations="isEmail" placeholder="Email" value="" required/>
+                  <Input name="email" label="Email address" onChange={ this.changeHandler} validations="isEmail" placeholder="Email" value="" required/>
                 </div>
                 <div className="form-group">
                   <Input name="password" type="password" label="password" validations="minLength:8" validationErrors={{minLength:'password must be 8 characters'}} placeholder="Password" required/>
@@ -51,7 +42,7 @@ export default class RegisterUser extends React.Component {
                   <Input name="c_password" label="Confirm Password" validations="equalsField:password" validationError="password does not match" type="password" placeholder="Confirm Password"/>
                 </div>
                 <div className="form-group">
-                  <Input name="phone" label="Phone No." validations="isNumeric,isLength:10" validationErrors={{isNumeric:"enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Mobile No" required/>
+                  <Input name="phone" label="Phone No." validations=" isNumeric,isLength:10" validationErrors={{isNumeric:"enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Mobile No" required/>
                 </div>
                 <div className="form-group">
                   <button type="submit" className="btn btn-default pull-right">Registration</button>
