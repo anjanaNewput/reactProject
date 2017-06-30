@@ -1,11 +1,13 @@
 import React from 'react';
-import { Link } from 'react-router-dom';
+import { Link, Redirect ,hashHistory} from 'react-router-dom';
 import {Form, Input} from 'formsy-react-components';
+import {DB} from '../app.js';
 
 export default class Login extends React.Component {
-  constructor(props) {
-    super(props);
+  constructor(props, context) {
+    super(props, context);
     this.changeHandler = this.changeHandler.bind(this);
+    this.submit  = this.submit.bind(this);
     this.state = {
       user: {}
     }
@@ -14,10 +16,29 @@ export default class Login extends React.Component {
   changeHandler(evnet) {
     console.log('change');
   }
-  
-  submit(data) {
-    console.log(data);
-    window.location = '/users';
+  checkLogin(userList, user) {
+      for(var i=0; i< userList.length; i++) {
+          if(userList[i].email == user.email) {
+              return true;
+          } else {
+              return false;
+          }
+      }
+  }
+  submit(user) {
+      var _this = this;
+      DB.get('users', function(err, doc) {
+           if (err) { 
+             return console.log(err);
+         } else {
+             if(_this.checkLogin(doc.data, user)) {
+                 _this.props.history.push("/users");
+             }
+             alert("user is not registerd. please register yourself first");
+             _this.props.history.push("/login");
+             
+         }
+     });
   }
   render() {
     return (
