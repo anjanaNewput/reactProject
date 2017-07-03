@@ -1,8 +1,8 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {UserName} from './userName.js';
-import {Logout} from './logout.js';
-import { store } from '../app.js';
+import { UserName} from './components/userName.js';
+import { Logout} from './components/logout.js';
+import { store } from './../../../../app.js';
 export class Header extends React.Component {
     constructor() {
       super();
@@ -15,7 +15,7 @@ export class Header extends React.Component {
                  <a className="navbar-brand">React App</a>
                </div>
                <ul className="nav navbar-nav navbar-right">
-                 <li><UserName/></li>
+                 <li><UserName username={store.getState().username ? store.getState().username.username : null}/></li>
                  <li>{store.getState().username ? <Logout /> : null}</li>
                </ul>
              </div>

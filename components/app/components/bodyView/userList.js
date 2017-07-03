@@ -1,5 +1,5 @@
 import React from 'react';
-import {DB} from '../app.js';
+import { dbConfig } from '../../../../services/PouchDb.js';
 export default class UserList extends React.Component {
   constructor(props){
     super(props);
@@ -9,25 +9,20 @@ export default class UserList extends React.Component {
   }
  
   componentDidMount() {
-    var _this = this;
+    var parentInstance = this;
     var userArray = [];
-    DB.allDocs({
-      include_docs: true,
-      attachments: true
-    }, function(err, response) {
-      if (err) { 
-        return console.log(err);
-    }else {
-        for(var i=0; i<response.rows.length; i++) {
-            var row = response.rows[i];
-            var d = new Date();
-            var obj = {id: i, 'firstName': "ABC", lastName: "XYZ", email: row.doc.model.email, phoneNumber: row.doc.model.phone, doa: d.toString()};
-            userArray.push(obj);
-        }
-        _this.setState({data: userArray});
+    dbConfig.getAllData().then(function(userData){
+      console.log(userData.rows);
+      for(var i = 0; i < userData.rows.length; i++) {
+          var row = userData.rows[i];
+          var d = new Date();
+          var obj = {id: i, 'firstName': "ABC", lastName: "XYZ", email: row.doc.model.email, phoneNumber: row.doc.model.phone, doa: d.toString()};
+          userArray.push(obj);
       }
-    });
       
+        parentInstance.setState({data: userArray});
+    });
+    
   }
   render() {
       var list = this.state.data.map(p =>{

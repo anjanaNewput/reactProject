@@ -1,5 +1,5 @@
 import { combineReducers } from 'redux';
-import { USER_NAME } from './actions.js';
+import { USER_NAME } from '../actions/actions.js';
 
 function user(state = null, action) {
    switch (action.type) {

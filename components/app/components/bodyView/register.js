@@ -2,8 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {Form, Input} from 'formsy-react-components';
 import Formsy from "formsy-react";
-import PouchDB from 'pouchdb';
-import {DB} from '../app';
+import { dbConfig } from '../../../../services/PouchDb.js';
  
 
 
@@ -19,8 +18,7 @@ export default class RegisterUser extends React.Component {
   }
   
   submit(model){
-    DB.put({ _id: model.email, model}, function(err,response) {
-    });
+    dbConfig.putData({ _id: model.email, model}); 
   }
   render() {
     return (
@@ -42,7 +40,7 @@ export default class RegisterUser extends React.Component {
                   <Input name="c_password" label="Confirm Password" validations="equalsField:password" validationError="password does not match" type="password" placeholder="Confirm Password"/>
                 </div>
                 <div className="form-group">
-                  <Input name="phone" label="Phone No." validations=" isNumeric,isLength:10" validationErrors={{isNumeric:"enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Mobile No" required/>
+                  <Input name="phone" label="Phone No." validations="isNumeric,isLength:10" validationErrors={{isNumeric:"enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Mobile No" required/>
                 </div>
                 <div className="form-group">
                   <button type="submit" className="btn btn-default pull-right">Registration</button>

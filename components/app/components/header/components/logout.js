@@ -1,7 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { updateUserName } from '../actions.js';
-import { store } from '../app.js';
+import { updateUserName } from '../../../../../actions/actions.js';
+import { store } from '../../../../../app.js';
 export class Logout extends React.Component {
     
   logout() {

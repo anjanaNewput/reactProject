@@ -4,9 +4,7 @@ import { BrowserRouter as Router, Route} from 'react-router-dom';
 import routes from './routes.js';
 import { createStore } from 'redux';
 import { Provider } from 'react-redux';
-import reducers from './reducers.js';
-import PouchDB from 'pouchdb';
-export const DB = new PouchDB('NewDB');
+import reducers from './reducers/reducers.js';
 export const store = createStore(reducers);
 ReactDOM.render((
     <Provider store = {store}>
