@@ -18,7 +18,8 @@ export default class RegisterUser extends React.Component {
   }
   
   submit(model){
-    dbConfig.putData({ _id: model.email, model}); 
+    console.log(model);
+    dbConfig.putData(model); 
   }
   render() {
     return (
@@ -31,16 +32,25 @@ export default class RegisterUser extends React.Component {
               </div>
               <Form onValidSubmit={this.submit} noValidate>
                 <div className="form-group">
+                  <Input name="firstname" label="First Name" onChange={ this.changeHandler}  placeholder="First Name" value="" required/>
+                </div>
+                <div className="form-group">
+                  <Input name="lastname" label="Last Name" onChange={ this.changeHandler}  placeholder="Last Name" value="" required/>
+                </div>
+                <div className="form-group">
                   <Input name="email" label="Email address" onChange={ this.changeHandler} validations="isEmail" placeholder="Email" value="" required/>
                 </div>
                 <div className="form-group">
-                  <Input name="password" type="password" label="password" validations="minLength:8" validationErrors={{minLength:'password must be 8 characters'}} placeholder="Password" required/>
+                  <Input name="password" type="password" label="Password" validations="minLength:8" validationErrors={{minLength:'password must be 8 characters'}} placeholder="Password" required/>
                 </div>
                 <div className="form-group">
-                  <Input name="c_password" label="Confirm Password" validations="equalsField:password" validationError="password does not match" type="password" placeholder="Confirm Password"/>
+                  <Input name="c_password" type="password" label="Confirm Password" validations="equalsField:password" validationError="password does not match"  placeholder="Confirm Password"/>
                 </div>
                 <div className="form-group">
-                  <Input name="phone" label="Phone No." validations="isNumeric,isLength:10" validationErrors={{isNumeric:"enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Mobile No" required/>
+                  <Input name="phone" label="Phone No." validations="isNumeric,isLength:10" validationErrors={{isNumeric:"enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Phone No" required/>
+                </div>
+                <div className="form-group">
+                  <Input name="doj" label="Date of Joining" type="date" className="form-control" id="doj" required/>
                 </div>
                 <div className="form-group">
                   <button type="submit" className="btn btn-default pull-right">Registration</button>
