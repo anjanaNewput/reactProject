@@ -1,6 +1,6 @@
 import React from 'react';
-import { Header } from './components/header/header.js';
-import { Footer } from './components/footer/footer.js';
+import { Header } from '../components/header.js';
+import { Footer } from '../components/footer.js';
 import { connect } from 'react-redux';
 
 class App extends React.Component {

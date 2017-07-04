@@ -2,9 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import {Form, Input} from 'formsy-react-components';
 import Formsy from "formsy-react";
-import { dbConfig } from '../../../../services/PouchDb.js';
- 
-
+import { dbConfig } from '../services/pouch-db.js';
 
 export default class RegisterUser extends React.Component {
   
@@ -18,7 +16,6 @@ export default class RegisterUser extends React.Component {
   }
   
   submit(model){
-    console.log(model);
     dbConfig.putData(model); 
   }
   render() {
@@ -53,7 +50,10 @@ export default class RegisterUser extends React.Component {
                   <Input name="doj" label="Date of Joining" type="date" className="form-control" id="doj" required/>
                 </div>
                 <div className="form-group">
-                  <button type="submit" className="btn btn-default pull-right">Registration</button>
+                  <input ref="file" type="file" name="file" className="upload-file"/>
+                </div>
+                <div className="form-group">
+                  <button type="submit" className="btn btn-primary pull-right">Registration</button>
                 </div>
               </Form>
             </div>

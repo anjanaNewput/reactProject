@@ -1,9 +1,7 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { updateUserName } from '../../../../../actions/actions.js';
-import { store } from '../../../../../app.js';
+import { store } from '../store.js';
 export class Logout extends React.Component {
-    
   logout() {
     store.getState().username = null;
   }

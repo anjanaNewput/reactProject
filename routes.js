@@ -1,10 +1,10 @@
 // routes.js
 import React from 'react';
 import { Route, Redirect } from 'react-router-dom';
-import App from './components/app/appComponent.js';
-import Login from './components/app/components/bodyView/login.js';
-import RegisterUser from './components/app/components/bodyView/register.js';
-import UserList from './components/app/components/bodyView/userList.js';
+import App from './containers/app-component.js';
+import Login from './containers/login.js';
+import RegisterUser from './containers/register.js';
+import UserList from './containers/user-list.js';
 
 const routes = (
   <App>

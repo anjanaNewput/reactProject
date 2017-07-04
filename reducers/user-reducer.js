@@ -1,23 +1,19 @@
-import {combineReducers} from "redux";
-import {LOG_IN, LOG_OUT} from "../actions";
+import { combineReducers } from 'redux';
+import { USER_NAME } from '../actions/user-action.js';
 
-function userAction(state = false, action) {
-  switch (action.type) {
-	  case "LOG_IN":
-      return { status: true, data:action.data};
-    break;
-    case "LOG_OUT":
-    console.log('log out reducers');
-      return false;
-    break;
-		default:
-    return state;
-  }
-  return state;
+function user(state = null, action) {
+   switch (action.type) {
+      case USER_NAME:
+         return {
+            username: action.username,
+         };
+			break;
+      default:
+      return state;
+   }
 }
 
-const allReducers = combineReducers({
-  userAction
+const reducers = combineReducers({
+   username:user
 })
-
-export default allReducers;
+export default reducers;

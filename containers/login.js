@@ -2,8 +2,8 @@ import React from 'react';
 import { Link, Redirect ,hashHistory} from 'react-router-dom';
 import { Form, Input } from 'formsy-react-components';
 import { connect } from 'react-redux';
-import { dbConfig } from '../../../../services/PouchDb.js';
-import { updateUserName } from '../../../../actions/actions.js';
+import { dbConfig } from '../services/pouch-db.js';
+import { updateUserName } from '../actions/user-action.js';
 
 class Login extends React.Component {
   constructor(props) {
@@ -20,18 +20,14 @@ class Login extends React.Component {
   }
   
   submit(user) {
-    console.log(user);
-      var parentInstance = this;
-      dbConfig.getData(user.email).then(function(doc){
-        console.log(doc.model);
-        if(doc.obj.email == user.email && doc.obj.password == user.password) {
-          console.log(user.email);
-           parentInstance.props.dispatch(updateUserName(user.email));
-           parentInstance.props.history.push("/users");
-        } else {
-           alert("Email or password do not match");
-        }
-          
+    var parentInstance = this;
+    dbConfig.getData(user.email).then(function(doc){
+      if(doc.obj.email == user.email && doc.obj.password == user.password) {
+         parentInstance.props.dispatch(updateUserName(user.email));
+         parentInstance.props.history.push("/users");
+      } else {
+         alert("Email or password do not match");
+      }
     });
   }
   
