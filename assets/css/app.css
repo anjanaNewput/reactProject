@@ -10,9 +10,9 @@
 #header a {
     color: #ffffff;
 }
-
 .main-container {
-  margin-top: 70px;
+  margin: 70px 20px;
+  min-height: 500px;
 }
 
 .footer {
@@ -21,10 +21,6 @@
     font-size: 15px;
     padding: 10px;
     color: #ffffff;
-    position: fixed;
-    bottom: 0px;
-    right: 0px;
-    left: 0px;
 }
 
 .form-container {

@@ -12,6 +12,7 @@ export default class UserList extends React.Component {
     var parentInstance = this;
     var userArray = [];
     dbConfig.getAllData().then(function(userData) {
+      console.log(userData);
       for(var i = 0; i < userData.rows.length; i++) {
         var row = userData.rows[i].doc.obj;
         userArray.push(row);
@@ -24,7 +25,7 @@ export default class UserList extends React.Component {
       var list = this.state.data.map(p => {
         return (
           <tr key={ Math.random()}>
-            {Object.keys(p).filter(k => k !== 'c_password' && k !== 'password').map(k => {
+            {Object.keys(p).filter(k => k !== 'c_password' && k !== 'password' && k !== 'file').map(k => {
               return (<td className="text-center" key={ Math.random()}>{p[k]}</td>);
             })}
           </tr>
@@ -41,6 +42,7 @@ export default class UserList extends React.Component {
               <th className="text-center">Email</th>
               <th className="text-center">Phone no</th>
               <th className="text-center">Date Of Joining</th>
+              <th className="text-center">Attachments</th>
             </tr>
           </thead>
           <tbody>

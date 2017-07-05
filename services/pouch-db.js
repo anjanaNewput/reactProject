@@ -2,20 +2,22 @@ import PouchDB from 'pouchdb';
 var db = new PouchDB('ReactDB');
 export const dbConfig = {
   db : db,
-  putData: function(obj){
-    dbConfig.db.put({ _id: obj.email, obj}, function(err,response) {
-      if(response) {
-        console.log('response');
-      }else {
-        db.createIndex({
-          index: {
-            fields: ['email']
-          }
-        });
-      }
+  putData: function(obj, attachment){
+    var doc = {
+      _id: obj.email,
+      _attachments: {
+        "att.txt": {
+          content_type: "application/pdf",
+          data: attachment
+        }
+      },
+      obj
+    };
+    dbConfig.db.put(doc, function(err, response) {
+      console.log(response);
     });
   },
-  getData: function(email){
+  getData: function(email) {
     return (
       dbConfig.db.get(email, function(err, doc) {
       if(doc) {
@@ -31,7 +33,6 @@ export const dbConfig = {
         include_docs: true,
         attachments: true
       }, function(err, response) {
-      })
-    );
+    }));
   }
 }
