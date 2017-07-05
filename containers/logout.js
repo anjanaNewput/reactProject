@@ -7,7 +7,7 @@ export class Logout extends React.Component {
   }
   render() {
     return (
-        <Link to="/login" onClick={() => this.logout()}><span className="glyphicon glyphicon-log-out"></span>LogOut</Link>
+      <Link to="/login" onClick={() => this.logout()}><span className="glyphicon glyphicon-log-out"></span>LogOut</Link>
     );
   }
 }

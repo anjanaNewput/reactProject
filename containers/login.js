@@ -16,32 +16,33 @@ class Login extends React.Component {
   }
   
   changeHandler(event) {
-    console.log('change');
   }
   
   submit(user) {
     var parentInstance = this;
-    dbConfig.getData(user.email).then(function(doc){
+    dbConfig.getData(user.email).then(function(doc) {
       if(doc.obj.email == user.email && doc.obj.password == user.password) {
          parentInstance.props.dispatch(updateUserName(user.email));
          parentInstance.props.history.push("/users");
       } else {
          alert("Email or password do not match");
       }
+    }).catch(function(err) {
+      console.log(err);
     });
   }
   
   render() {
     return (
       <div className="row">
-        <div className="col-xs-offset-3 col-xs-6">
+        <div className="col-xs-offset-2 col-xs-8">
           <div className="row">
             <div className="col-xs-12">
               <div className="form-group text-right">
                 <Link to="/register"> Click To Register</Link>
               </div>
               <Form onValidSubmit={this.submit} noValidate>
-                <Input name="email" label="Email" onChange={this.changeHandler} validations="isEmail" validationError="email is not valid" required/>
+                <Input name="email" label="Email"  validations="isEmail" validationError="email is not valid" required/>
                 <Input name="password" type="password" label="password" onChange={this.changeHandler} validations={{minLength: 8}} validationErrors={{minLength: 'password must be 8 characters'}} required/>
                 <div className="text-center">
                   <button type="submit" className="btn btn-primary pull-right">LogIn</button>

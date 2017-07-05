@@ -1,8 +1,11 @@
 import PouchDB from 'pouchdb';
-var db = new PouchDB('ReactDB');
+import plugin from 'pouchdb-find';
+PouchDB.plugin(plugin);
+var db = new PouchDB('ReactNew',plugin);
+
 export const dbConfig = {
-  db : db,
-  putData: function(obj, attachment){
+  putData: function(obj, attachment) {
+    console.log(attachment);
     var doc = {
       _id: obj.email,
       _attachments: {
@@ -13,23 +16,35 @@ export const dbConfig = {
       },
       obj
     };
-    dbConfig.db.put(doc, function(err, response) {
-      console.log(response);
+    db.createIndex( {
+      index: {
+        fields: ['email'],
+      }
+    },function(err, result) {
+      if(err) {
+        console.log(err);
+      }else {
+        console.log(result);
+      }
     });
+    return db.put(doc);
   },
   getData: function(email) {
+    var em = email;
+    db.find({
+      selector: {email: em},
+      fields: ['name', 'password']
+    }, function (err, result) {
+      if (err) { return console.log(err); }
+      console.log(result);
+    });
     return (
-      dbConfig.db.get(email, function(err, doc) {
-      if(doc) {
-        return doc;
-      } else {
-        alert("You are not registered. please register yourself first");
-      }
-    }));
+      db.get(email)
+    );
   },
   getAllData: function() {
     return (
-      dbConfig.db.allDocs({
+      db.allDocs({
         include_docs: true,
         attachments: true
       }, function(err, response) {

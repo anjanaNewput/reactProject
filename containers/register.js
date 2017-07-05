@@ -8,17 +8,32 @@ export default class RegisterUser extends React.Component {
   
   constructor(props) {
     super(props);
+    this.submit = this.submit.bind(this);
   }
   
-  submit(model) {
+  submit(model){
+    var _this = this;
     var reader = new FileReader();
-    reader.onload = function() {
-      var data = reader.result.split(',');
-      dbConfig.putData(model, data[1]);
-    };
-    reader.readAsDataURL(model.file[0]);
+    
+    dbConfig.getData(model.email).then(function(doc) {
+      if(doc) {
+        alert('user already registered');
+      }
+    }).catch(function(err) {
+      
+      reader.onload = function() {
+        var data = reader.result.split(',');
+        dbConfig.putData(model, data[1]).then(function(doc) {
+          if(doc) {
+            alert('user registered successfully');
+            _this.props.history.push('/login');
+          }
+        });
+      };
+      reader.readAsDataURL(model.file[0]);
+    });
   }
-  
+
   render() {
     return (
       <div className="row">

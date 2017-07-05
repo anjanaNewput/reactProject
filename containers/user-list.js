@@ -1,10 +1,10 @@
 import React from 'react';
 import { dbConfig } from '../services/pouch-db.js';
 export default class UserList extends React.Component {
-  constructor(props){
+  constructor(props) {
     super(props);
     this.state = {
-        data :[]
+      data :[]
     };
   }
  
@@ -13,7 +13,7 @@ export default class UserList extends React.Component {
     var userArray = [];
     dbConfig.getAllData().then(function(userData) {
       console.log(userData);
-      for(var i = 0; i < userData.rows.length; i++) {
+      for(var i = 2; i < userData.rows.length; i++) {
         var row = userData.rows[i].doc.obj;
         userArray.push(row);
       }

@@ -18,6 +18,7 @@
     "formsy-react-components": "^0.10.1",
     "path": "^0.12.7",
     "pouchdb": "^6.2.0",
+    "pouchdb-find": "^6.2.0",
     "react": "^15.6.1",
     "react-dom": "^15.6.1",
     "react-promise": "^1.1.3",
