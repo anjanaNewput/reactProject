@@ -6,6 +6,7 @@ function user(state = null, action) {
     case USER_NAME:
       return {
         username: action.username,
+        role: action.username.obj.role
       };
 		break;
     default:

@@ -1,6 +1,6 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import {Form, Input, File} from 'formsy-react-components';
+import {Form, Input, File, Select} from 'formsy-react-components';
 import Formsy from "formsy-react";
 import { dbConfig } from '../services/pouch-db.js';
 
@@ -14,23 +14,22 @@ export default class RegisterUser extends React.Component {
   submit(model){
     var _this = this;
     var reader = new FileReader();
-    
     dbConfig.getData(model.email).then(function(doc) {
       if(doc) {
-        alert('user already registered');
+        alert('User already registered');
       }
     }).catch(function(err) {
       
-      reader.onload = function() {
-        var data = reader.result.split(',');
-        dbConfig.putData(model, data[1]).then(function(doc) {
-          if(doc) {
-            alert('user registered successfully');
-            _this.props.history.push('/login');
-          }
-        });
-      };
-      reader.readAsDataURL(model.file[0]);
+    reader.onload = function() {
+      var data = reader.result.split(',');
+      dbConfig.putData(model, data[1]).then(function(doc) {
+        if(doc) {
+          alert('User registered successfully');
+          _this.props.history.push('/login');
+        }
+      });
+    };
+    reader.readAsDataURL(model.file[0]);
     });
   }
 
@@ -64,6 +63,10 @@ export default class RegisterUser extends React.Component {
                 </div>
                 <div className="form-group">
                   <Input name="doj" label="Date of Joining" type="date" className="form-control" id="doj" required/>
+                </div>
+                <div className="form-group">
+                  <Select name="role" label="Role" className="form-control" id="role" options={[{value: 'admin', label: 'Admin'}, { value: 'user', label: 'User'}]} required>
+                  </Select>
                 </div>
                 <div className="form-group">
                   <File className="form-control" name="file" id="file" accept="application/pdf" />
