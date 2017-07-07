@@ -53,13 +53,13 @@ export default class RegisterUser extends React.Component {
                   <Input name="email" label="Email address" validations="isEmail" placeholder="Email" value="" required/>
                 </div>
                 <div className="form-group">
-                  <Input name="password" type="password" label="Password" validations="minLength:8" validationErrors={{minLength:'password must be 8 characters'}} placeholder="Password" required/>
+                  <Input name="password" type="password" label="Password" validations="minLength:8" validationErrors={{minLength:'Password must have 8 characters'}} placeholder="Password" required/>
                 </div>
                 <div className="form-group">
-                  <Input name="c_password" type="password" label="Confirm Password" validations="equalsField:password" validationError="password does not match"  placeholder="Confirm Password"/>
+                  <Input name="c_password" type="password" label="Confirm Password" validations="equalsField:password" validationError="Password does not match"  placeholder="Confirm Password"/>
                 </div>
                 <div className="form-group">
-                  <Input name="phone" label="Phone No." validations="isNumeric,isLength:10" validationErrors={{isNumeric:"enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Phone No" required/>
+                  <Input name="phone" label="Phone No." validations="isNumeric,isLength:10" validationErrors={{isNumeric:"Enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Phone No" required/>
                 </div>
                 <div className="form-group">
                   <Input name="doj" label="Date of Joining" type="date" className="form-control" id="doj" required/>

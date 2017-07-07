@@ -2,9 +2,8 @@ import React from 'react';
 import {Modal, ModalHeader, ModalBody, ModalTitle, ModalFooter, ModalClose} from 'react-modal-bootstrap';
 import {Form, Input, File, Select} from 'formsy-react-components';
 import Formsy from "formsy-react";
+import '../assets/scss/model.scss';
 export const UpdateModal= ((props) => {
-  console.log('modal props');
-  console.log(props);
     return (
       <Modal 
         isOpen = { props.open } 
@@ -25,13 +24,12 @@ export const UpdateModal= ((props) => {
         <ModalHeader>
           <ModalClose onClick={props.modalClose}/>
           <ModalTitle>
-            Modal title
+          <h3>Update User Info</h3>
           </ModalTitle>
         </ModalHeader>
         <ModalBody>
-          <p>Modal Body</p>
           { props.user ?
-            <Form  noValidate>
+            <Form  noValidate className="update-form">
               <div className="form-group">
                 <Input name="firstname" label="First Name" placeholder="First Name"  value={props.user.obj.firstname} required/>
               </div>
@@ -39,16 +37,16 @@ export const UpdateModal= ((props) => {
                 <Input name="lastname" label="Last Name" placeholder="Last Name"  value={props.user.obj.lastname} required/>
               </div>
               <div className="form-group">
-                <Input name="phone" label="Phone No."  value={props.user.obj.phone} validations="isNumeric,isLength:10" validationErrors={{isNumeric:"enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Phone No" required/>
+                <Input name="phone" label="Phone No." value={props.user.obj.phone} validations="isNumeric,isLength:10" validationErrors={{isNumeric:"Enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Phone No" required/>
               </div>
               <div className="form-group">
-                <button type="submit" className="btn btn-primary pull-right">Registration</button>
+                <button type="submit" className="btn btn-primary register-button">Registration</button>
               </div>
             </Form> : null
           }
         </ModalBody>
         <ModalFooter>
-          <button onClick={props.modalClose}>Close </button>
+          <button onClick={props.modalClose} className="btn btn-warning">Close</button>
         </ModalFooter>
       </Modal>
     );

@@ -29,10 +29,8 @@ class Login extends React.Component {
           alert("Email or password do not match");
         }
       }).catch(function(err) {
-        console.log(err);
       });
     }, function (error) {
-      console.log(error);
     });
     
   }
@@ -47,8 +45,8 @@ class Login extends React.Component {
                 <Link to="/register"> Click To Register</Link>
               </div>
               <Form onValidSubmit={this.submit} noValidate>
-                <Input name="email" label="Email"  validations="isEmail" validationError="email is not valid" required/>
-                <Input name="password" type="password" label="password" onChange={this.changeHandler} validations={{minLength: 8}} validationErrors={{minLength: 'password must be 8 characters'}} required/>
+                <Input name="email" label="Email"  validations="isEmail" validationError="Email is not valid" required/>
+                <Input name="password" type="password" label="password" onChange={this.changeHandler} validations={{minLength: 8}} validationErrors={{minLength: 'Password must have 8 characters'}} required/>
                 <div className="text-center">
                   <button type="submit" className="btn btn-primary pull-right">LogIn</button>
                 </div>

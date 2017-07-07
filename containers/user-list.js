@@ -56,12 +56,7 @@ export default class UserList extends React.Component {
   
   modalOpen(event) {
     var parentInstance = this;
-    console.log('modal');
-    console.log(this);
-    console.log(event.target.value);
     dbConfig.findByEmail(event.target.value).then(function (doc) {
-      console.log('find by email');
-      console.log(doc.docs[0]);
       parentInstance.setState({
         user: doc.docs[0],
         modalIsOpen: true
@@ -83,7 +78,7 @@ export default class UserList extends React.Component {
           <Confirm
             onConfirm = {this.deleteUser}
             confirmText="Yes"
-            body="Are u sure?"
+            body="Are You Sure?"
             title="Deleting User"
           ><button className="btn btn-primary">Delete</button>
           </Confirm>

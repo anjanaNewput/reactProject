@@ -6,6 +6,33 @@
     right: 0px;
     z-index: 1;
     a {
-        color: #ffffff;
+      color: #333333;
     }
 }
+.main-container {
+  margin: 70px 20px;
+  min-height: 500px;
+  
+  .form-container {
+    margin-top: 25%;
+  }
+}
+
+.footer {
+    text-align: center;
+    background: #0099CC;
+    font-size: 15px;
+    padding: 10px;
+    color: #ffffff;
+}
+
+.icon-bar {
+  background-color: #FFFFFF;
+}  
+.navbar-toggle {
+  .navbar-toggle {
+    &:hover{
+     background-color: transparent !important;
+   }
+  }
+ }
