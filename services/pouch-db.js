@@ -61,6 +61,9 @@ export const dbConfig = {
   findByEmail: function(email) {
     return db.find({selector: {'obj.email': email}});
   },
+  findByNotEmail : function(email) {
+    return db.find({ selector: {'obj.email': {$ne: email }}});
+  },
   removeDoc: function(doc) {
     return db.remove(doc);
   }

@@ -17,13 +17,22 @@ export default class UserList extends React.Component {
     var parentInstance = this;
     var userArray = [];
     if(store.getState().username.role == 'admin') {
-      dbConfig.getAllData().then(function(userData) {
-        for(var i = 2; i < userData.rows.length; i++) {
-          var row = userData.rows[i].doc.obj;
-          userArray.push(row);
-        }
-        parentInstance.setState({data: userArray});
-      });
+      console.log(store.getState().username.username.obj.email);
+        var email = store.getState().username.username.obj.email;
+        dbConfig.findByNotEmail(email).then(function(doc) {
+          for(var i = 0; i < doc.docs.length; i++) {
+            var row = doc.docs[i].obj;
+            userArray.push(row);
+          }
+          parentInstance.setState({data: userArray});
+        });
+      // dbConfig.getAllData().then(function(userData) {
+      //   for(var i = 3; i < userData.rows.length; i++) {
+      //     var row = userData.rows[i].doc.obj;
+      //     userArray.push(row);
+      //   }
+      //   parentInstance.setState({data: userArray});
+      // });
     }else {
       dbConfig.findByRole('user').then(function(doc) {
         for(var i = 0; i < doc.docs.length; i++) {
@@ -68,7 +77,7 @@ export default class UserList extends React.Component {
               <th className="text-center">Phone no</th>
               <th className="text-center">Date Of Joining</th>
               <th className="text-center">Role</th>
-            {store.getState().username.role == "admin"? <th className="text-center">Action</th>: null }
+            { store.getState().username && store.getState().username.role == "admin"? <th className="text-center">Action</th>: null }
             </tr>
           </thead>
           <tbody>
