@@ -17,7 +17,7 @@ export const Header = (() => {
              </div>
              <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul className="nav navbar-nav navbar-right">
-                 <li><UserName username={store.getState().username ? store.getState().username.username : null}/></li>
+                 <UserName username={store.getState().username ? store.getState().username.username : null}/>
                  <li>{store.getState().username ? <Logout /> : null}</li>
                </ul>
              </div>

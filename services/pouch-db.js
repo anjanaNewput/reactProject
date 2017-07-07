@@ -27,6 +27,18 @@ db.createIndex( {
   }
 });
 
+db.createIndex( {
+  index: {
+    fields: ['obj.role', 'obj.email'],
+  }
+},function(err, result) {
+  if(err) {
+    console.log(err);
+  }else {
+    console.log(result);
+  }
+});
+
 export const dbConfig = {
   putData: function(obj, attachment) {
     console.log(attachment);
@@ -43,6 +55,16 @@ export const dbConfig = {
     return db.put(doc);
   },
   getData: function(email) {
+    db.find({ selector:{
+      'obj.role': 'user',
+      'obj.email': {$ne: 'shubham@gmail.com'},
+    }}).then(function(doc) {
+      console.log('search by admin and not eq to shubham');
+      console.log(doc);
+    }).catch(function(err) {
+      console.log('search by admin and not eq to shubham err');
+      console.log(err);
+    });
     return (
       db.get(email)
     );
