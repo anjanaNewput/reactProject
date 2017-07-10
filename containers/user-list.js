@@ -10,17 +10,13 @@ export default class UserList extends React.Component {
     super(props);
     this.modalOpen = this.modalOpen.bind(this);
     this.modalClose = this.modalClose.bind(this);
+    this.updateUserData = this.updateUserData.bind(this);
     this.state = {
-      name: "niraj",
       data :[],
       modalIsOpen: false
     };
-    this.email = null;
   }
- 
-  componentWillMount() {
-  }
-  
+   
   componentDidMount() {
     var parentInstance = this;
     var userArray = [];
@@ -63,8 +59,27 @@ export default class UserList extends React.Component {
       });
     });
   }
+  
   modalClose() {
     this.setState({modalIsOpen: false});
+  }
+  
+  updateUserData(model) {
+    var parentInstance = this;
+    var updateObj = this.state.user.obj;
+    updateObj['firstname'] = model.firstname;
+    updateObj['lastname'] = model.lastname;
+    updateObj['phone'] = model.phone;
+    dbConfig.findByEmail(this.state.user.obj.email).then(function (doc) {
+      dbConfig.db.put({
+        _id: doc.docs[0]._id,
+        _rev: doc.docs[0]._rev,
+        obj: updateObj,
+      }).then(function (result) {
+        parentInstance.modalClose();
+        parentInstance.componentDidMount();
+      });
+    });
   }
   
   render() {
@@ -82,7 +97,7 @@ export default class UserList extends React.Component {
             title="Deleting User"
           ><button className="btn btn-primary">Delete</button>
           </Confirm>
-          </td>: <td> <button className="btn btn-primary" onClick={this.modalOpen} value={p['email']}>Update</button></td> }
+          </td>: <td className="text-center"> <button className="btn btn-primary" onClick={this.modalOpen} value={p['email']}>Update</button></td> }
         </tr>
       );
     });
@@ -98,15 +113,14 @@ export default class UserList extends React.Component {
               <th className="text-center">Phone no</th>
               <th className="text-center">Date Of Joining</th>
               <th className="text-center">Role</th>
-            { store.getState().username && store.getState().username.role == "admin"? <th className="text-center">Action</th>: null }
+              <th className="text-center">Action</th>
             </tr>
           </thead>
           <tbody>
             {list}
           </tbody>
         </table>
-        <UpdateModal open={this.state.modalIsOpen} modalClose={this.modalClose} user={this.state.user}/>
-        <button className="btn btn-primary" onClick={this.modalOpen}>Open Modal</button>
+        <UpdateModal open={this.state.modalIsOpen} modalClose={this.modalClose} user={this.state.user} update={this.updateUserData}/>
       </div>
     );
   }

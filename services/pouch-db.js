@@ -40,6 +40,7 @@ db.createIndex( {
 });
 
 export const dbConfig = {
+  db: db,
   putData: function(obj, attachment) {
     console.log(attachment);
     var doc = {

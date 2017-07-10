@@ -1,6 +1,7 @@
 import React from 'react';
 import { UserName} from './user-name.js';
-import { Logout} from '../containers/logout.js';
+
+import { UserSettings } from '../containers/user-setting.js';
 import { store } from '../store.js';
 export const Header = (() => {
     return (
@@ -17,8 +18,9 @@ export const Header = (() => {
              </div>
              <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
                <ul className="nav navbar-nav navbar-right">
-                 <UserName username={store.getState().username ? store.getState().username.username : null}/>
-                 <li>{store.getState().username ? <Logout /> : null}</li>
+                {store.getState().username ? <UserName username={store.getState().username ? store.getState().username.username : null}/> : null}
+                
+                {store.getState().username ? <UserSettings /> : null}
                </ul>
              </div>
            </div>

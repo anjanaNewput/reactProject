@@ -2,8 +2,13 @@ import React from 'react';
 import {Modal, ModalHeader, ModalBody, ModalTitle, ModalFooter, ModalClose} from 'react-modal-bootstrap';
 import {Form, Input, File, Select} from 'formsy-react-components';
 import Formsy from "formsy-react";
+
+import { store } from '../store.js';
 import '../assets/scss/model.scss';
-export const UpdateModal= ((props) => {
+
+export const ChangePasswordModal = ((props) => {
+  console.log('change-password-modal ');
+  console.log(props);
     return (
       <Modal 
         isOpen = { props.open } 
@@ -23,26 +28,27 @@ export const UpdateModal= ((props) => {
         <ModalHeader>
           <ModalClose onClick={props.modalClose}/>
           <ModalTitle>
-            Update User Info
+            Change Password
           </ModalTitle>
         </ModalHeader>
         <ModalBody>
-          { props.user ?
-            <Form  noValidate className="update-form">
+            <Form  onValidSubmit={props.submit} noValidate className="update-form">
               <div className="form-group">
-                <Input name="firstname" label="First Name" placeholder="First Name"  value={props.user.obj.firstname} required/>
+                <Input name="newpassword" label="New Password" type="password" validations="minLength:8" validationErrors={{minLength:'Password must have 8 characters'}} placeholder="New password"  required/>
               </div>
               <div className="form-group">
-                <Input name="lastname" label="Last Name" placeholder="Last Name"  value={props.user.obj.lastname} required/>
+                <Input name="newc_password" label="Confirm New Password" type="password" validations="equalsField:newpassword" validationError="Password does not match" placeholder="Confirm New Password" required/>
+              </div>
+              <div className="form-group hidden">
+                <Input name="cu_password"  type="password" value={store.getState().username.username.obj.password} required/>
               </div>
               <div className="form-group">
-                <Input name="phone" label="Phone No." value={props.user.obj.phone} validations="isNumeric,isLength:10" validationErrors={{isNumeric:"Enter only digit", isLength:"Phone No. should be 10 digit"}}type="text" className="form-control" id="phone" placeholder="Phone No" required/>
+                <Input name="current_password" label="CurrentPassword" type="password" validations="equalsField:cu_password" validationError="Current Password does not match" placeholder="Current Password" required/>
               </div>
               <div className="form-group">
-                <button type="submit" className="btn btn-primary register-button">Registration</button>
+                <button type="submit" className="btn btn-primary register-button">Save Change</button>
               </div>
-            </Form> : null
-          }
+            </Form>
         </ModalBody>
         <ModalFooter>
           <button onClick={props.modalClose} className="btn btn-warning">Close</button>
