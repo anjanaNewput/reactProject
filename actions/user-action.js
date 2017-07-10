@@ -1,8 +1,16 @@
-export const USER_NAME = 'USER_NAME';
+export const USER = 'USER';
+export const URL = 'URL';
 
-export function updateUserName(name) {
+export function updateUserName(user) {
   return {
-    type: USER_NAME,
-    username: name,
+    type: USER,
+    user: user,
+  };
+}
+
+export function getAttachmentUrl(url) {
+  return {
+    type: URL,
+    url: url
   };
 }

@@ -3,7 +3,7 @@ import { Link, Redirect ,hashHistory} from 'react-router-dom';
 import { Form, Input } from 'formsy-react-components';
 import { connect } from 'react-redux';
 import { dbConfig } from '../services/pouch-db.js';
-import { updateUserName } from '../actions/user-action.js';
+import { updateUserName, getAttachmentUrl } from '../actions/user-action.js';
 
 class Login extends React.Component {
   constructor(props) {
@@ -24,11 +24,16 @@ class Login extends React.Component {
       dbConfig.getData(user.email).then(function(doc) {
         if(doc.obj.email == user.email && doc.obj.password == user.password ) {
           parentInstance.props.dispatch(updateUserName(doc));
-          parentInstance.props.history.push("/users");
         } else {
           alert("Email or password do not match");
         }
+        return dbConfig.getAttachment(user.email, 'profilePic', doc._rev);
+      }).then(function (blob) {
+          var url = URL.createObjectURL(blob);
+          parentInstance.props.dispatch(getAttachmentUrl(url));
+          parentInstance.props.history.push("/users");
       }).catch(function(err) {
+        console.log(err);
       });
     }, function (error) {
     });
@@ -60,7 +65,8 @@ class Login extends React.Component {
 }
 const mapStateToProps = (state) => {
   return {
-    username: state.username,
+    user: state.user,
+    profileImg: state.profileImg
   };
 };
 export default connect(mapStateToProps)(Login);

@@ -14,14 +14,16 @@ export const Header = (() => {
                  <span className="icon-bar"></span>
                  <span className="icon-bar"></span>
                </button>
-               <a className="navbar-brand">React App</a>
+               <a className="navbar-brand"><img className="brand-img" src="../assets/images/react_logo.png" alt="React App"/></a>
              </div>
              <div className="collapse navbar-collapse" id="bs-example-navbar-collapse-1">
+             {store.getState().user ?
                <ul className="nav navbar-nav navbar-right">
-                {store.getState().username ? <UserName username={store.getState().username ? store.getState().username.username : null}/> : null}
-                
-                {store.getState().username ? <UserSettings /> : null}
+                 <UserName user={store.getState().user.user.obj.email}/>
+                 <li><a><img className="profile-img"  src={store.getState().profileImg ? store.getState().profileImg.url : '../assets/images/profile.png' }/></a></li>
+                 <UserSettings />
                </ul>
+            : null}
              </div>
            </div>
        </nav>

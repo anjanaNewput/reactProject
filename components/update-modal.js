@@ -23,7 +23,7 @@ export const UpdateModal= ((props) => {
         <ModalHeader>
           <ModalClose onClick={props.modalClose}/>
           <ModalTitle>
-            Update User Info
+          <span>Update User Info</span>
           </ModalTitle>
         </ModalHeader>
         <ModalBody>

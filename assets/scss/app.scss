@@ -1,38 +1,53 @@
+@import "variables";
 #header {
-    background-color: #0099CC;
+    background-color: $blue-color;
     position: fixed;
     top: 0px;
     left: 0px;
     right: 0px;
     z-index: 1;
-    a {
-      color: #333333;
+    .navbar-brand {
+      padding: 5px 15px;
     }
+    a {
+      color: $black-5;
+      padding: 10px 15px;
+      .brand-img {
+        height: 40px;
+        width: 40px;
+      }
+    }
+    .navbar-toggle {
+      border: none;
+      background-color: transparent;
+      &:hover,
+      &:focus{
+       background-color: transparent;
+     }
+     
+     .icon-bar {
+       background-color: $white-color;
+     } 
+   }
+   .profile-img {
+     height: 30px;
+     width: 30px;
+     border-radius: 5px;
+   }
 }
 .main-container {
-  margin: 70px 20px;
+  margin: 80px 20px;
   min-height: 500px;
   
   .form-container {
-    margin-top: 25%;
+    margin-top: 30px;
   }
 }
 
 .footer {
     text-align: center;
-    background: #0099CC;
+    background: $blue-color;
     font-size: 15px;
     padding: 10px;
-    color: #ffffff;
+    color: $white-color;
 }
-
-.icon-bar {
-  background-color: #FFFFFF;
-}  
-.navbar-toggle {
-  .navbar-toggle {
-    &:hover{
-     background-color: transparent !important;
-   }
-  }
- }

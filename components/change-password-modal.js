@@ -7,8 +7,6 @@ import { store } from '../store.js';
 import '../assets/scss/model.scss';
 
 export const ChangePasswordModal = ((props) => {
-  console.log('change-password-modal ');
-  console.log(props);
     return (
       <Modal 
         isOpen = { props.open } 
@@ -40,7 +38,7 @@ export const ChangePasswordModal = ((props) => {
                 <Input name="newc_password" label="Confirm New Password" type="password" validations="equalsField:newpassword" validationError="Password does not match" placeholder="Confirm New Password" required/>
               </div>
               <div className="form-group hidden">
-                <Input name="cu_password"  type="password" value={store.getState().username.username.obj.password} required/>
+                <Input name="cu_password"  type="password" value={store.getState().user.user.obj.password} required/>
               </div>
               <div className="form-group">
                 <Input name="current_password" label="CurrentPassword" type="password" validations="equalsField:cu_password" validationError="Current Password does not match" placeholder="Current Password" required/>

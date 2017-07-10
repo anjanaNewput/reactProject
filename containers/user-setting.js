@@ -20,38 +20,32 @@ export class UserSettings extends React.Component {
   }
   
   modalOpen() {
-    console.log('open moda;l');
     this.setState({
       modalIsOpen: true
     });
   }
   
   modalClose() {
-    
     this.setState({modalIsOpen: false});
   }
   
   changePassword() {
-    console.log(this);
-    console.log('change Password');
     this.modalOpen();
   }
   
   logout() {
-    store.getState().username = null;
+    store.getState().user = null;
   }
   
   submit(model) {
-    console.log('submit');
-    console.log(model);
     this.updatePassword(model);
   }
   
   updatePassword(model) {
     var parentInstance = this;
-    var updateObj = store.getState().username.username.obj;
+    var updateObj = store.getState().user.user.obj;
     updateObj['password'] = model.newpassword;
-    dbConfig.findByEmail( store.getState().username.username.obj.email).then(function (doc) {
+    dbConfig.findByEmail( store.getState().user.user.obj.email).then(function (doc) {
       dbConfig.db.put({
         _id: doc.docs[0]._id,
         _rev: doc.docs[0]._rev,
@@ -65,10 +59,10 @@ export class UserSettings extends React.Component {
   render() { 
     return (
       <li className="dropdown">
-        <a href="#"  className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-cog fa-1x" aria-hidden="true"></i></a>
+        <a className="dropdown-toggle" data-toggle="dropdown"><i className="fa fa-cog fa-2x" aria-hidden="true"></i></a>
         <ul id="dropdown-menu" className="dropdown-menu">
           <li><ChangePassword changePassword={this.changePassword} open={this.state.modalIsOpen} close={this.modalClose}/></li>
-          <li><a href="#">Edit</a></li>
+          <li><a>Edit</a></li>
           <li><Logout logout={this.logout}/></li>
         </ul>
         <ChangePasswordModal open={this.state.modalIsOpen} modalClose={this.modalClose} submit={this.submit}/>

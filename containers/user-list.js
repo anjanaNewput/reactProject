@@ -20,8 +20,8 @@ export default class UserList extends React.Component {
   componentDidMount() {
     var parentInstance = this;
     var userArray = [];
-    if(store.getState().username &&  store.getState().username.role == 'admin') {
-      var email = store.getState().username.username.obj.email;
+    if(store.getState().user) {
+      var email = store.getState().user.user.obj.email;
       dbConfig.findByNotEmail(email).then(function(doc) {
         for(var i = 0; i < doc.docs.length; i++) {
           var row = doc.docs[i].obj;
@@ -65,12 +65,11 @@ export default class UserList extends React.Component {
   }
   
   updateUserData(model) {
-    var parentInstance = this;
-    var updateObj = this.state.user.obj;
+    var updateObj = store.getState().user.user.obj;
     updateObj['firstname'] = model.firstname;
     updateObj['lastname'] = model.lastname;
     updateObj['phone'] = model.phone;
-    dbConfig.findByEmail(this.state.user.obj.email).then(function (doc) {
+    dbConfig.findByEmail(updateObj.email).then(function (doc) {
       dbConfig.db.put({
         _id: doc.docs[0]._id,
         _rev: doc.docs[0]._rev,
@@ -89,7 +88,7 @@ export default class UserList extends React.Component {
           {Object.keys(p).filter(k => k !== 'c_password' && k !== 'password' && k !== 'file').map(k => {
             return (<td className="text-center" key={ Math.random()}>{p[k]}</td>);
           })}
-          { store.getState().username && store.getState().username.role == "admin"? <td className="text-center">
+          { store.getState().user && store.getState().user.user.obj.role == "admin"? <td className="text-center">
           <Confirm
             onConfirm = {this.deleteUser}
             confirmText="Yes"

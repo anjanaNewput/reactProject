@@ -1,12 +1,22 @@
 import { combineReducers } from 'redux';
-import { USER_NAME } from '../actions/user-action.js';
+import { USER, URL } from '../actions/user-action.js';
 
 function user(state = null, action) {
   switch (action.type) {
-    case USER_NAME:
+    case USER:
       return {
-        username: action.username,
-        role: action.username.obj.role
+        user: action.user
+      };
+		break;
+    default:
+    return state;
+  }
+}
+function getUrl(state = null, action) {
+  switch (action.type) {
+    case URL:
+      return {
+        url: action.url
       };
 		break;
     default:
@@ -15,6 +25,7 @@ function user(state = null, action) {
 }
 
 const reducers = combineReducers({
-  username: user
+  user: user,
+  profileImg: getUrl
 })
 export default reducers;

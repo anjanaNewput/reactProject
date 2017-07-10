@@ -1,7 +1,7 @@
 import PouchDB from 'pouchdb';
 import plugin from 'pouchdb-find';
 PouchDB.plugin(plugin);
-var db = new PouchDB('ReactNew',plugin);
+var db = new PouchDB('DemoDb',plugin);
 
 db.createIndex( {
   index: {
@@ -46,8 +46,8 @@ export const dbConfig = {
     var doc = {
       _id: obj.email,
       _attachments: {
-        "att.pdf": {
-          content_type: "application/pdf",
+        "profilePic": {
+          content_type: "image/*",
           data: attachment
         }
       },
@@ -56,18 +56,8 @@ export const dbConfig = {
     return db.put(doc);
   },
   getData: function(email) {
-    db.find({ selector:{
-      'obj.role': 'user',
-      'obj.email': {$ne: 'shubham@gmail.com'},
-    }}).then(function(doc) {
-      console.log('search by admin and not eq to shubham');
-      console.log(doc);
-    }).catch(function(err) {
-      console.log('search by admin and not eq to shubham err');
-      console.log(err);
-    });
     return (
-      db.get(email)
+      db.get(email, {attachments: true})
     );
   },
   getAllData: function() {
@@ -89,5 +79,8 @@ export const dbConfig = {
   },
   removeDoc: function(doc) {
     return db.remove(doc);
+  },
+  getAttachment: function(id, attachment, revision) {
+    return(db.getAttachment(id, attachment, { _rev: revision}));
   }
 }

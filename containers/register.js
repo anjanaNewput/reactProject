@@ -69,7 +69,7 @@ export default class RegisterUser extends React.Component {
                   </Select>
                 </div>
                 <div className="form-group">
-                  <File className="form-control" name="file" id="file" accept="application/pdf" />
+                  <File className="form-control" name="file" id="file" accept="image/*" />
                 </div>
                 <div className="form-group">
                   <button type="submit" className="btn btn-primary pull-right">Registration</button>
